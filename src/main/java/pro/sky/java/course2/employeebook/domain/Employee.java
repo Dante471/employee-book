@@ -1,4 +1,4 @@
-package pro.sky.java.course2.employeebook.service;
+package pro.sky.java.course2.employeebook.domain;
 
 import java.util.Objects;
 

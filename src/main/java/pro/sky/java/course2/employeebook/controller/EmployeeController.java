@@ -4,8 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.java.course2.employeebook.service.Employee;
-import pro.sky.java.course2.employeebook.service.EmployeeNotFoundException;
+import pro.sky.java.course2.employeebook.domain.Employee;
 import pro.sky.java.course2.employeebook.service.EmployeeService;
 
 @RestController
@@ -29,13 +28,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/remove")
-    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) throws EmployeeNotFoundException {
+    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
         employeeService.remove(firstName, lastName);
         return "Сотрудник " + firstName + " " + lastName + " успешно удален!";
     }
 
     @GetMapping("/find")
-    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) throws EmployeeNotFoundException {
+    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
         return employeeService.find(firstName, lastName);
     }
 

@@ -1,4 +1,4 @@
-package pro.sky.java.course2.employeebook.service;
+package pro.sky.java.course2.employeebook.domain.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
