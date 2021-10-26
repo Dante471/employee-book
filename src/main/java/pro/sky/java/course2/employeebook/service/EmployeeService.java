@@ -2,20 +2,19 @@ package pro.sky.java.course2.employeebook.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.employeebook.domain.Employee;
-import pro.sky.java.course2.employeebook.exception.ArrayOverflowException;
 import pro.sky.java.course2.employeebook.exception.EmployeeNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EmployeeService {
-    private final Employee[] employees = new Employee[1];
+    private final List<Employee> employees = new ArrayList<>();
 
     public void remove(String firstName, String lastName) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                continue;
-            }
-            if (firstName.equals(employees[i].getFirstName()) && lastName.equals(employees[i].getLastName())) {
-                employees[i] = null;
+        for (int i = 0; i < employees.size(); i++) {
+            if (firstName.equals(employees.get(i).getFirstName()) && lastName.equals(employees.get(i).getLastName())) {
+                employees.remove(i);
                 return;
             }
         }
@@ -24,25 +23,20 @@ public class EmployeeService {
 
 
     public void add(String firstName, String lastName) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                employees[i] = new Employee(firstName, lastName);
-                return;
-            }
-        }
-        throw new ArrayOverflowException();
+        employees.add(new Employee(firstName, lastName));
     }
 
     public Employee find(String firstName, String lastName) {
         for (Employee employee : employees) {
-            if (employee == null) {
-                continue;
-            }
             if (firstName.equals(employee.getFirstName()) && lastName.equals(employee.getLastName())) {
-                    return employee;
-                }
+                return employee;
             }
+        }
         throw new EmployeeNotFoundException();
+    }
+
+    public List<Employee> all() {
+        return employees;
     }
 
 }
