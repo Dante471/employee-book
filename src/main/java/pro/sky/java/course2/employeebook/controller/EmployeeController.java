@@ -17,7 +17,7 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public String welcome() {
+    public String showWelcomeMessage() {
         return "Добро пожаловать в книгу сотрудников!";
     }
 

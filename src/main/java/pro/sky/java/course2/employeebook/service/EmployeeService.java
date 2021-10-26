@@ -2,8 +2,8 @@ package pro.sky.java.course2.employeebook.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.employeebook.domain.Employee;
-import pro.sky.java.course2.employeebook.domain.exception.ArrayOverflowException;
-import pro.sky.java.course2.employeebook.domain.exception.EmployeeNotFoundException;
+import pro.sky.java.course2.employeebook.exception.ArrayOverflowException;
+import pro.sky.java.course2.employeebook.exception.EmployeeNotFoundException;
 
 @Service
 public class EmployeeService {
