@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.employeebook.domain.Employee;
-import pro.sky.java.course2.employeebook.service.EmployeeService;
+import pro.sky.java.course2.employeebook.service.EmployeeServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-    private final EmployeeService employeeService;
+    private final EmployeeServiceImpl employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -25,24 +25,22 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public String addEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        employeeService.add(firstName, lastName);
-        return "Сотрудник " + firstName + " " + lastName + " успешно создан!";
+        return employeeService.addEmployee(firstName, lastName);
     }
 
     @GetMapping("/remove")
     public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        employeeService.remove(firstName, lastName);
-        return "Сотрудник " + firstName + " " + lastName + " успешно удален!";
+        return employeeService.removeEmployee(firstName, lastName);
     }
 
     @GetMapping("/find")
     public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.find(firstName, lastName);
+        return employeeService.findEmployee(firstName, lastName);
     }
 
     @GetMapping("/all")
     public List<Employee> showAllEmployees() {
-         return employeeService.all();
+         return employeeService.getAllEmployees();
     }
 
 }
