@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.java.course2.employeebook.domain.Employee;
 import pro.sky.java.course2.employeebook.exception.EmployeeNotFoundException;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Map<String, Employee> getAllEmployees() {
-        return employees;
+    public Collection<Employee> getAllEmployees() {
+        return employees.values();
     }
 
 }

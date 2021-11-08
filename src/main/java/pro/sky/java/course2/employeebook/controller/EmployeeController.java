@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.employeebook.domain.Employee;
 import pro.sky.java.course2.employeebook.service.EmployeeServiceImpl;
 
-import java.util.Map;
-
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/employee")
@@ -40,7 +39,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/all")
-    public Map<String, Employee> showAllEmployees() {
+    public Collection<Employee> showAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
