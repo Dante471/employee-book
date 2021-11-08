@@ -4,43 +4,40 @@ import org.springframework.stereotype.Service;
 import pro.sky.java.course2.employeebook.domain.Employee;
 import pro.sky.java.course2.employeebook.exception.EmployeeNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final List<Employee> employees = new ArrayList<>();
-    private Employee employeeForSearch;
+    private final Map<String, Employee> employees = new HashMap<>();
 
     @Override
     public String removeEmployee(String firstName, String lastName) {
-        employeeForSearch = new Employee(firstName,lastName);
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).equals(employeeForSearch)) {
-                employees.remove(i);
-                return String.format("Сотрудник %s %s успешно удален!", firstName, lastName);
-            }
+        if (employees.containsKey(firstName + lastName)) {
+            employees.remove(firstName + lastName);
+            return String.format("Сотрудник %s %s успешно удален!", firstName, lastName);
         }
         throw new EmployeeNotFoundException();
     }
 
+    @Override
     public String addEmployee(String firstName, String lastName) {
-        employees.add(new Employee(firstName, lastName));
+        employees.put(firstName + lastName, new Employee(firstName, lastName));
         return String.format("Сотрудник %s %s успешно добавлен!", firstName, lastName);
     }
 
+    @Override
     public Employee findEmployee(String firstName, String lastName) {
-        employeeForSearch = new Employee(firstName,lastName);
-        for (Employee employee : employees) {
-            if (employee.equals(employeeForSearch)) {
-                return employee;
-            }
+        if (employees.containsKey(firstName + lastName)) {
+            return employees.get(firstName + lastName);
         }
         throw new EmployeeNotFoundException();
     }
 
-    public List<Employee> getAllEmployees() {
-        return employees;
+    @Override
+    public Collection<Employee> getAllEmployees() {
+        return employees.values();
     }
 
 }
