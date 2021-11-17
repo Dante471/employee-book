@@ -5,7 +5,6 @@ import pro.sky.java.course2.employeebook.domain.Employee;
 import pro.sky.java.course2.employeebook.exception.EmployeeNotFoundException;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,13 +13,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employees = new HashMap<>();
 
     @Override
-    public void removeEmployee(String firstName, String lastName) {
-        employees.values().removeAll(Collections.singleton(firstName + lastName));
+    public Employee removeEmployee(String firstName, String lastName) {
+        if (employees.containsKey(firstName + lastName)) {
+            Employee employeeForReturn = employees.get(firstName + lastName);
+            employees.remove(firstName + lastName);
+            return employeeForReturn;
+        }
+        throw new EmployeeNotFoundException();
     }
 
     @Override
-    public void addEmployee(String firstName, String lastName, int departmentId, int salary) {
+    public Employee addEmployee(String firstName, String lastName, int departmentId, int salary) {
         employees.put(firstName + lastName, new Employee(firstName, lastName, departmentId, salary));
+        return employees.get(firstName + lastName);
     }
 
     @Override

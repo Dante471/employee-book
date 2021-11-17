@@ -8,6 +8,7 @@ import pro.sky.java.course2.employeebook.domain.Employee;
 import pro.sky.java.course2.employeebook.service.DepartmentServiceImpl;
 import pro.sky.java.course2.employeebook.service.UserMessageServiceImpl;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -38,14 +39,9 @@ public class DepartmentController {
         return departmentService.getMinSalaryEmployeeByDepartment(departmentId);
     }
 
-    @GetMapping("/all-in-dep")
-    public Set<Employee> showAllDepartmentEmployees(@RequestParam int departmentId) {
-        return departmentService.getAllDepartmentEmployees(departmentId);
-    }
-
-    @GetMapping("/all-sorted")
-    public List<Employee> showAllEmployeesSortedByDepartment() {
-        return departmentService.getAllEmployeesSortedByDepartment();
+    @GetMapping("/all")
+    public Collection<Employee> showAllEmployeesByDepartment(Integer departmentId) {
+        return departmentService.getAllEmployeesByDepartmentId(departmentId);
     }
 
 }
