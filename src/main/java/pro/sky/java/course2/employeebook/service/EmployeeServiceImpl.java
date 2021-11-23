@@ -15,22 +15,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
         if (employees.containsKey(firstName + lastName)) {
-            Employee employeeForReturn = employees.get(firstName + lastName);
-            employees.remove(firstName + lastName);
-            return employeeForReturn;
+            return employees.remove(firstName + lastName);
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
     public Employee addEmployee(String firstName, String lastName, int departmentId, int salary) {
-        employees.put(firstName + lastName, new Employee(firstName, lastName, departmentId, salary));
-        return employees.get(firstName + lastName);
+        Employee employee = new Employee(firstName, lastName,departmentId, salary);
+        employees.put(firstName + lastName, employee);
+        return employee;
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-
         return employees.values()
                 .stream()
                 .filter(employee -> (employee.getFirstName() + employee.getLastName()).equals(firstName + lastName))
