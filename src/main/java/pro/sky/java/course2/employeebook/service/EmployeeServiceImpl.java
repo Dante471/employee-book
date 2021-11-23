@@ -13,26 +13,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employees = new HashMap<>();
 
     @Override
-    public String removeEmployee(String firstName, String lastName) {
+    public Employee removeEmployee(String firstName, String lastName) {
         if (employees.containsKey(firstName + lastName)) {
-            employees.remove(firstName + lastName);
-            return String.format("Сотрудник %s %s успешно удален!", firstName, lastName);
+            return employees.remove(firstName + lastName);
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public String addEmployee(String firstName, String lastName) {
-        employees.put(firstName + lastName, new Employee(firstName, lastName));
-        return String.format("Сотрудник %s %s успешно добавлен!", firstName, lastName);
+    public Employee addEmployee(String firstName, String lastName, int departmentId, int salary) {
+        Employee employee = new Employee(firstName, lastName,departmentId, salary);
+        employees.put(firstName + lastName, employee);
+        return employee;
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        if (employees.containsKey(firstName + lastName)) {
-            return employees.get(firstName + lastName);
-        }
-        throw new EmployeeNotFoundException();
+        return employees.values()
+                .stream()
+                .filter(employee -> (employee.getFirstName() + employee.getLastName()).equals(firstName + lastName))
+                .findAny()
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
