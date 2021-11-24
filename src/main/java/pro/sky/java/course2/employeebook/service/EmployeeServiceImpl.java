@@ -1,8 +1,10 @@
 package pro.sky.java.course2.employeebook.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.employeebook.domain.Employee;
 import pro.sky.java.course2.employeebook.exception.EmployeeNotFoundException;
+import pro.sky.java.course2.employeebook.exception.IllegalNameException;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,11 +22,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeNotFoundException();
     }
 
+
     @Override
     public Employee addEmployee(String firstName, String lastName, int departmentId, int salary) {
-        Employee employee = new Employee(firstName, lastName,departmentId, salary);
-        employees.put(firstName + lastName, employee);
-        return employee;
+        if (StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)) {
+            Employee employee = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), departmentId, salary);
+            employees.put(firstName + lastName, employee);
+            return employee;
+        }
+        throw new IllegalNameException();
     }
 
     @Override
