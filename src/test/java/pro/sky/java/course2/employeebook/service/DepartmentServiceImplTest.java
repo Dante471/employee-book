@@ -16,14 +16,14 @@ import static pro.sky.java.course2.employeebook.constants.EmployeeBookConstants.
 public class DepartmentServiceImplTest {
 
     @Mock
-    private EmployeeServiceImpl employeeServiceImplMock;
+    private EmployeeService employeeServiceMock;
 
     @InjectMocks
     private DepartmentServiceImpl out;
 
     @Test
     public void shouldReturnAllEmployeesByOneDepartment () {
-        when(employeeServiceImplMock.getAllEmployees())
+        when(employeeServiceMock.getAllEmployees())
                 .thenReturn(CORRECT_COLLECTION);
 
         assertIterableEquals(CORRECT_COLLECTION_DEP1, out.getAllEmployeesByDepartmentId(1));
@@ -31,35 +31,35 @@ public class DepartmentServiceImplTest {
 
     @Test
     public void shouldReturnAllEmployeesSortedByDepartment () {
-        when(employeeServiceImplMock.getAllEmployees())
+        when(employeeServiceMock.getAllEmployees())
                 .thenReturn(CORRECT_COLLECTION);
         assertIterableEquals(CORRECT_COLLECTION, out.getAllEmployeesByDepartmentId(null));
     }
 
     @Test
     public void shouldReturnEmptyCollectionWhenDepartmentAbsent () {
-        when(employeeServiceImplMock.getAllEmployees())
+        when(employeeServiceMock.getAllEmployees())
                 .thenReturn(CORRECT_COLLECTION);
         assertIterableEquals(EMPTY_COLLECTION, out.getAllEmployeesByDepartmentId(3));
     }
 
     @Test
     public void shouldReturnMinSalaryEmployeeByDepartment() {
-        when(employeeServiceImplMock.getAllEmployees())
+        when(employeeServiceMock.getAllEmployees())
                 .thenReturn(CORRECT_COLLECTION);
         assertEquals(TEST_EMPLOYEE, out.getMinSalaryEmployeeByDepartment(1));
     }
 
     @Test
     public void shouldReturnMaxSalaryEmployeeByDepartment() {
-        when(employeeServiceImplMock.getAllEmployees())
+        when(employeeServiceMock.getAllEmployees())
                 .thenReturn(CORRECT_COLLECTION);
         assertEquals(TEST_EMPLOYEE2, out.getMinSalaryEmployeeByDepartment(2));
     }
 
     @Test
     public void shouldThrowNoSuchElementExceptionForMinSalaryEmployeeFindingWhenDepartmentAbsent () {
-        when(employeeServiceImplMock.getAllEmployees())
+        when(employeeServiceMock.getAllEmployees())
                 .thenReturn(CORRECT_COLLECTION);
         assertThrows(NoSuchElementException.class,
                 () -> out.getMinSalaryEmployeeByDepartment(3));
@@ -67,7 +67,7 @@ public class DepartmentServiceImplTest {
 
     @Test
     public void shouldThrowNoSuchElementExceptionForMaxSalaryEmployeeFindingWhenDepartmentAbsent () {
-        when(employeeServiceImplMock.getAllEmployees())
+        when(employeeServiceMock.getAllEmployees())
                 .thenReturn(CORRECT_COLLECTION);
         assertThrows(NoSuchElementException.class,
                 () -> out.getMaxSalaryEmployeeByDepartment(3));
